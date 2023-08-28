@@ -2,11 +2,11 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://jsonplaceholder.typicode.com', // Replace with your API URL
+  baseURL: 'http://192.168.1.31:4000/api/futurePedia/', // Replace with your API URL
 });
 
 export const fetchPosts = async () => {
-  const response = await instance.get('/posts');
+  const response = await instance.get('/userList');
   return response.data;
 };
 
