@@ -275,3 +275,7 @@
   background: var(--dark);
   border-color: var(--primary);
 }
+.error {
+  color: #e74c3c;
+  margin-top: 4px;
+}

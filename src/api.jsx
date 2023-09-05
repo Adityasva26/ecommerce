@@ -11,6 +11,15 @@ export const fetchPosts = async () => {
 };
 
 export const createPost = async (postData) => {
-    const response = await instance.post('/posts', postData);
-    return response.data;
-  };
+  const response = await instance.post('/addUser', postData);
+  return response.data;
+};
+
+export const deletePost = async (postData) => {
+  const response = await instance.post('/userDelete', postData);
+  return response.data;
+};
+export const updatepost = async (postData) => {
+  const response = await instance.post('/userUpdate', postData);
+  return response.data;
+};
