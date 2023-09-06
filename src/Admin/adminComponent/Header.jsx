@@ -1,4 +1,7 @@
+import { useSelector } from "react-redux";
+
 function Header() {
+    const posts = useSelector((state) => state?.login?.data?.data);
     return ( <>
      <nav className="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                 <a href="index.html" className="navbar-brand d-flex d-lg-none me-4">
@@ -77,7 +80,7 @@ function Header() {
                     <div className="nav-item dropdown">
                         <a href="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img className="rounded-circle me-lg-2" src="../assets/img/user.jpg" alt="" style={{width: "40px" , height: "40px"}}/>
-                            <span className="d-none d-lg-inline-flex">John Doe</span>
+                            <span className="d-none d-lg-inline-flex">{posts?.full_name}</span>
                         </a>
                         <div className="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" className="dropdown-item">My Profile</a>

@@ -4,14 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { fetchPostsAsync, deletePostAsync } from '../../../redux/postSlice';
 import SideBar from "../../adminComponent/sideBar";
 import Header from "../../adminComponent/Header";
+import Alert from '../../../_service/alert';
 
 function Userlist() {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState("");
     const [filteredPosts, setFilteredPosts] = useState([]);
+    const [isVisible, setIsVisible] = useState(true);
 
     const posts = useSelector((state) => state?.posts?.data);
+    const action = useSelector((state) => state?.posts?.action);
     const loading = useSelector((state) => state?.posts?.loading);
 
     useEffect(() => {
@@ -21,6 +24,10 @@ function Userlist() {
                 setFilteredPosts(result.payload.data)
             }
         });;
+        const timeoutId = setTimeout(() => {
+            setIsVisible(false);
+          }, 3000); 
+          return () => clearTimeout(timeoutId);
     }, [dispatch]);
     const handleDeleteClick = (id) => {
         // Dispatch an action to delete the post
@@ -28,7 +35,7 @@ function Userlist() {
     };
 
     const handleNavigate = (e) => {
-        navigate(`/user/Update/${e}`)
+        navigate(`/Admin/user/Update/${e}`)
     }
     const handleSearchInputChange = (e) => {
         const query = e.target.value.toLowerCase();
@@ -43,8 +50,11 @@ function Userlist() {
 
         setFilteredPosts(filtered);
     };
+    console.log("b",action?.message)
     return (<>
+    {action?.message&&isVisible ? ( <Alert message={action?.message}/>):(<></>)}
         <div className="container-xxl position-relative bg-white d-flex p-0">
+      
             <SideBar />
             <div className="content">
                 <Header />
@@ -66,7 +76,7 @@ function Userlist() {
                                     </div>
                                 </div>
 
-                                <Link to="/user/Add" className="btn btn-info m-2">Add+</Link>
+                                <Link to="/Admin/user/Add" className="btn btn-info m-2">Add+</Link>
                             </div>
                         </div>
 
@@ -96,6 +106,7 @@ function Userlist() {
                         </div>
                     </div>
                 </div>
+               
             </div>
         </div>
     </>);

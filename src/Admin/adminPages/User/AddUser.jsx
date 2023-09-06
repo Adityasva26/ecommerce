@@ -34,7 +34,7 @@ function AddUpdateUser() {
        if(param.service=='Update'){
         dispatch(updatepostAsync(values)) .then((result) => {
             if (result.payload.message=="success") {
-                navigate(`/User`)
+                navigate(`/Admin/User`)
             }
         });
        }

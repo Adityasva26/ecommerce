@@ -26,6 +26,7 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState: {
     data: [],
+    action:{},
     loading: false,
     error: null,
   },
@@ -48,7 +49,7 @@ const postsSlice = createSlice({
       })
       .addCase(createPostAsync.fulfilled, (state, action) => {
         state.loading = false;
-        state.data.push(action.payload);
+        state.action=action.payload
       })
       .addCase(createPostAsync.rejected, (state, action) => {
         state.loading = false;
@@ -59,7 +60,7 @@ const postsSlice = createSlice({
       })
       .addCase(updatepostAsync.fulfilled, (state, action) => {
         state.loading = false;
-        state.data=action.payload;
+        state.action=action.payload;
       })
       .addCase(updatepostAsync.rejected, (state, action) => {
         state.loading = false;
@@ -71,7 +72,7 @@ const postsSlice = createSlice({
       .addCase(deletePostAsync.fulfilled, (state, action) => {
         state.loading = false;
         // Remove the deleted post from the state
-        state.data = state.data.filter((post) => post.id !== action.payload);
+        state.action = state.data.filter((post) => post.id !== action.payload);
       })
       .addCase(deletePostAsync.rejected, (state, action) => {
         state.loading = false;

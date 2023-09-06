@@ -23,3 +23,9 @@ export const updatepost = async (postData) => {
   const response = await instance.post('/userUpdate', postData);
   return response.data;
 };
+
+export const login = async (postData) => {
+  console.log("postData",postData)
+  const response = await instance.post('/login', postData);
+  return response.data;
+};
