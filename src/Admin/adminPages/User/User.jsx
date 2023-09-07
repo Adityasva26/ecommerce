@@ -15,15 +15,18 @@ function Userlist() {
 
     const posts = useSelector((state) => state?.posts?.data);
     const action = useSelector((state) => state?.posts?.action);
+    const login = useSelector((state) => state?.login?.data?.data?.token);
     const loading = useSelector((state) => state?.posts?.loading);
 
     useEffect(() => {
-        dispatch(fetchPostsAsync()).then((result) => {
+        dispatch(fetchPostsAsync(login)).then((result) => {
             if (result) {
                 console.log(result.payload)
                 setFilteredPosts(result.payload.data)
             }
-        });;
+        }).catch((err)=>{
+            console.log("err",err)
+        })
         const timeoutId = setTimeout(() => {
             setIsVisible(false);
           }, 3000); 
@@ -31,7 +34,7 @@ function Userlist() {
     }, [dispatch]);
     const handleDeleteClick = (id) => {
         // Dispatch an action to delete the post
-        dispatch(deletePostAsync(id));
+        dispatch(deletePostAsync(login,id));
     };
 
     const handleNavigate = (e) => {
@@ -50,7 +53,7 @@ function Userlist() {
 
         setFilteredPosts(filtered);
     };
-    console.log("b",action?.message)
+    
     return (<>
     {action?.message&&isVisible ? ( <Alert message={action?.message}/>):(<></>)}
         <div className="container-xxl position-relative bg-white d-flex p-0">

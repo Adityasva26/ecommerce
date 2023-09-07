@@ -32,7 +32,7 @@ function AddUpdateUser() {
 
     const handleSubmit = (values) => {
        if(param.service=='Update'){
-        dispatch(updatepostAsync(values)) .then((result) => {
+        dispatch(updatepostAsync(login,values)) .then((result) => {
             if (result.payload.message=="success") {
                 navigate(`/Admin/User`)
             }
@@ -40,7 +40,7 @@ function AddUpdateUser() {
        }
        else{
         if (values) {
-            dispatch(createPostAsync(values)).then((result) => {
+            dispatch(createPostAsync(login,values)).then((result) => {
                 if (result.payload.message=="success") {
                     navigate(`/User`)
                 }

@@ -2,23 +2,31 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchPosts, createPost, deletePost,updatepost } from '../api';
 
-export const fetchPostsAsync = createAsyncThunk('posts/fetchPosts', async () => {
-  const posts = await fetchPosts();
+
+export const fetchPostsAsync = createAsyncThunk('posts/fetchPosts', async (token) => {
+
+  const posts = await fetchPosts(token).catch((err)=>{
+    console.log(err.message)
+});
   return posts;
 });
 
-export const createPostAsync = createAsyncThunk('posts/createPost', async (postData) => {
-  const newPost = await createPost(postData);
+export const createPostAsync = createAsyncThunk('posts/createPost', async (token,postData) => {
+  const newPost = await createPost(token,postData);
   return newPost;
 });
 
-export const deletePostAsync = createAsyncThunk('posts/deletePost', async (postId) => {
+export const deletePostAsync = createAsyncThunk('posts/deletePost', async (token,postId) => {
+
   // Assuming deletePost function takes the postId as an argument
-  await deletePost(postId);
+  await deletePost(token,postId).catch((err)=>{
+    console.log("err",err)
+});
   return postId; // Return the deleted postId if you need it
 });
-export const updatepostAsync = createAsyncThunk('posts/updatepost', async (postData) => {
-  const newPost = await updatepost(postData);
+export const updatepostAsync = createAsyncThunk('posts/updatepost', async (token,postData) => {
+
+  const newPost = await updatepost(token,postData);
   return newPost;
 });
 
